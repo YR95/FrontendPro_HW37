@@ -5,103 +5,65 @@ const roles = {
 };
 
 const gradation = {
-  20: "satisfactory",
-  55: "good",
-  85: "very-good",
-  100: "excellent"
+  20: "satisfactory", 55: "good", 85: "very-good", 100: "excellent"
 };
 
-const users = [
-  {
-    name: "Jack Smith",
-    age: 23,
-    img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922522.svg",
-    role: "student",
-    courses: [
-      {
-        "title": "Front-end Pro",
-        "mark": 20
-      },
-      {
-        "title": "Java Enterprise",
-        "mark": 100
-      }
-    ]
-  },
-  {
-    name: "Amal Smith",
-    age: 20,
-    img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922656.svg",
-    role: "student"
-  },
-  {
-    name: "Noah Smith",
-    age: 43,
-    img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922616.svg",
-    role: "student",
-    courses: [
-      {
-        "title": "Front-end Pro",
-        "mark": 50
-      }
-    ]
-  },
-  {
-    name: "Charlie Smith",
-    age: 18,
-    img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922688.svg",
-    role: "student",
-    courses: [
-      {
-        "title": "Front-end Pro",
-        "mark": 75
-      },
-      {
-        "title": "Java Enterprise",
-        "mark": 23
-      }]
-  },
-  {
-    name: "Emily Smith",
-    age: 30,
-    img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922565.svg",
-    role: "admin",
-    courses: [
-      {
-        "title": "Front-end Pro",
-        "score": 10,
-        "lector": "Leo Smith"
-      },
-      {
-        "title": "Java Enterprise",
-        "score": 50,
-        "lector": "David Smith"
-      },
-      {
-        "title": "QA",
-        "score": 75,
-        "lector": "Emilie Smith"
-      }]
-  },
-  {
-    name: "Leo Smith",
-    age: 253,
-    img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922719.svg",
-    role: "lector",
-    courses: [
-      {
-        "title": "Front-end Pro",
-        "score": 78,
-        "studentsScore": 79
-      },
-      {
-        "title": "Java Enterprise",
-        "score": 85,
-        "studentsScore": 85
-      }
-    ]
-  }
-]
+const users = [{
+  name: "Jack Smith",
+  age: 23,
+  img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922522.svg",
+  role: "student",
+  courses: [{
+    "title": "Front-end Pro", "mark": 20
+  }, {
+    "title": "Java Enterprise", "mark": 100
+  }]
+}, {
+  name: "Amal Smith",
+  age: 20,
+  img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922656.svg",
+  role: "student"
+}, {
+  name: "Noah Smith",
+  age: 43,
+  img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922616.svg",
+  role: "student",
+  courses: [{
+    "title": "Front-end Pro", "mark": 50
+  }]
+}, {
+  name: "Charlie Smith",
+  age: 18,
+  img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922688.svg",
+  role: "student",
+  courses: [{
+    "title": "Front-end Pro", "mark": 75
+  }, {
+    "title": "Java Enterprise", "mark": 23
+  }]
+}, {
+  name: "Emily Smith",
+  age: 30,
+  img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922565.svg",
+  role: "admin",
+  courses: [{
+    "title": "Front-end Pro", "score": 10, "lector": "Leo Smith"
+  }, {
+    "title": "Java Enterprise", "score": 50, "lector": "David Smith"
+  }, {
+    "title": "QA", "score": 75, "lector": "Emilie Smith"
+  }]
+}, {
+  name: "Leo Smith",
+  age: 253,
+  img: "https://www.flaticon.com/svg/static/icons/svg/2922/2922719.svg",
+  role: "lector",
+  courses: [{
+    "title": "Front-end Pro", "score": 78, "studentsScore": 79
+  }, {
+    "title": "Java Enterprise", "score": 85, "studentsScore": 85
+  }]
+}]
 
 class User {
   constructor(value) {
@@ -148,6 +110,29 @@ class User {
     return res;
 
   }
+
+  static calculateAvarageCourseScore(nameOfCourse) {
+    let sum = 0, index = 0, avarege = 0;
+    let course = users.filter(function (value) {
+      if (value.role === "student" && value.courses !== undefined) {
+        {
+          return value;
+        }
+      }
+    }).map(value => value.courses)
+    let arrCourse = [...course.flat()];
+    console.log(arrCourse);
+
+    for (let i = 0; i < arrCourse.length; i++) {
+      if (nameOfCourse === arrCourse[i].title) {
+        sum = sum + arrCourse[i].mark;
+        index++;
+      }
+    }
+    avarege = sum / index;
+    console.log(`avarage for course ${nameOfCourse} is ${avarege}`)
+  }
+
 }
 
 class Student extends User {
@@ -175,6 +160,7 @@ class Student extends User {
   renderCourses() {
     super.renderCourses();
   }
+
 }
 
 class Lector extends User {
@@ -199,6 +185,17 @@ class Lector extends User {
                 </div>
             </div>`);
 
+  }
+
+  renderCourses() {
+    // <div className="user__courses admin--info">
+    //   <div className="user__courses--course lector">
+    //     <p>Title: <b>Front-end Pro</b></p>
+    //     <p>Lector's score: <span className="satisfactory">Satisfactory</span>
+    //     </p>
+    //     <p>Average student's score: <span
+    //         className="very-good">Very Good</span></p>
+    //   </div>
   }
 }
 
@@ -225,6 +222,7 @@ class Admin extends User {
   }
 }
 
+User.calculateAvarageCourseScore('Front-end Pro');
 users.map(function (value) {
   let x;
   switch (value.role) {
