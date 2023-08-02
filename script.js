@@ -1,7 +1,7 @@
 const roles = {
-  admin: "https://www.flaticon.com/svg/static/icons/svg/1424/1424453.svg",
-  student: "https://www.flaticon.com/svg/static/icons/svg/1424/1424424.svg",
-  lector: "https://www.flaticon.com/svg/static/icons/svg/1424/1424450.svg"
+  admin: "admin.png",
+  student: "user.png",
+  lector: "lector.png"
 };
 
 const gradation = {
@@ -97,9 +97,9 @@ class User {
     let res;
     if (0 < mark && mark < 20) {
       res = "not satisfactory";
-    } else if (20 <= mark && mark < 50) {
+    } else if (20 <= mark && mark < 55) {
       res = gradation["20"];
-    } else if (50 <= mark && mark < 85) {
+    } else if (55 <= mark && mark < 85) {
       res = gradation["55"];
     } else if (85 <= mark && mark < 100) {
       res = gradation["85"];
@@ -245,3 +245,4 @@ users.map(function (value) {
   x.render();
   x.renderCourses();
 })
+console.log(users)
