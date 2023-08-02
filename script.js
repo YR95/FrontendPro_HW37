@@ -122,7 +122,8 @@ class Student extends User {
     document.write(`
                 <div class="user__info">
                 <div class="user__info--data">
-                    <img src="./user.png" alt="Jack Smith" height="50">
+<!--                    <img src="./user.png" alt="Jack Smith" height="50">-->
+                    <img src=${roles.student} alt="Jack Smith" height="50">
                     <div class="user__naming">
                         <p>Name: <b>${this.name}</b></p>
                         <p>Age: <b>${this.age}</b></p>
@@ -151,14 +152,14 @@ class Lector extends User {
     document.write(`<div class="user">
             <div class="user__info">
                 <div class="user__info--data">
-                    <img src="./user.png" alt="Jack Smith" height="50">
+                    <img src=${roles.student} alt="Jack Smith" height="50">
                     <div class="user__naming">
                         <p>Name: <b>${this.name}</b></p>
                         <p>Age: <b>${this.age}</b></p>
                     </div>
                 </div>
                 <div class="user__info--role lector">
-                    <img src="./lector.png" alt="lector" height="25">
+                    <img src="${roles.lector}" alt="lector" height="25">
                     <p>lector</p>
                 </div>
             </div>`);
@@ -197,14 +198,14 @@ class Admin extends User {
     document.write(`  <div class="user">
                 <div class="user__info">
                    <div class="user__info&#45;&#45;data">
-                     <img src="./user.png" alt="Jack Smith" height="50">
+                     <img src=${roles.student} alt="Jack Smith" height="50">
                         <div class="user__naming">
                           <p>Name: <b>${this.name}</b></p>
                           <p>Age: <b>${this.age}</b></p>
                         </div>
                   </div>
                    <div class="user__info&#45;&#45;role admin">
-                      <img src="./admin.png" alt="admin" height="25">
+                      <img src=${roles.admin} alt="admin" height="25">
                          <p>admin</p>
                     </div>
                 </div>`);
