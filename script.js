@@ -111,28 +111,6 @@ class User {
 
   }
 
-  static calculateAvarageCourseScore(nameOfCourse) {
-    let sum = 0, index = 0, avarege = 0;
-    let course = users.filter(function (value) {
-      if (value.role === "student" && value.courses !== undefined) {
-        {
-          return value;
-        }
-      }
-    }).map(value => value.courses)
-    let arrCourse = [...course.flat()];
-    console.log(arrCourse);
-
-    for (let i = 0; i < arrCourse.length; i++) {
-      if (nameOfCourse === arrCourse[i].title) {
-        sum = sum + arrCourse[i].mark;
-        index++;
-      }
-    }
-    avarege = sum / index;
-    console.log(`avarage for course ${nameOfCourse} is ${avarege}`)
-  }
-
 }
 
 class Student extends User {
@@ -188,15 +166,26 @@ class Lector extends User {
   }
 
   renderCourses() {
-    // <div className="user__courses admin--info">
-    //   <div className="user__courses--course lector">
-    //     <p>Title: <b>Front-end Pro</b></p>
-    //     <p>Lector's score: <span className="satisfactory">Satisfactory</span>
-    //     </p>
-    //     <p>Average student's score: <span
-    //         className="very-good">Very Good</span></p>
-    //   </div>
+
+    let result = this.courses.map(function (value) {
+      let score = User.evaluateMark(value.score);
+      let stScore = User.evaluateMark(value.studentsScore);
+
+      return `
+  <div className="user__courses admin--info" style="padding: 20px">    
+        <div className="user__courses--course lector">
+              <p>Title: <b>${value.title}</b></p>
+              <p>Lector's score: <span className=${score}>${score}</span></p>
+              <p>Average student's score: <span className=${stScore}>${stScore}</span></p>
+         </div>
+  </div>`
+
+    });
+    document.write(
+        `<div  style=" display:flex; flex-direction:row; " class="user">${result.join(
+            " ")}</div>`)
   }
+
 }
 
 class Admin extends User {
@@ -220,9 +209,25 @@ class Admin extends User {
                     </div>
                 </div>`);
   }
+
+  renderCourses() {
+    let result = this.courses.map(function (value) {
+      let score = User.evaluateMark(value.score);
+
+      return `<div class="user__courses admin--info">
+                <div class="user__courses--course admin">
+                    <p>Title: <b>${value.title}</b></p>
+                    <p>Admin's score: <span class=${score}>${score}</span></p>
+                   <p>Lector: <b>${value.lector}</b></p>
+                </div>
+</div>`;
+    })
+    document.write(
+        `<div  style=" display:flex; flex-direction:row; " class="user">${result.join(
+            " ")}</div>`)
+  }
 }
 
-User.calculateAvarageCourseScore('Front-end Pro');
 users.map(function (value) {
   let x;
   switch (value.role) {
