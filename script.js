@@ -117,16 +117,16 @@ class User {
 
   renderCourses() {
     if (this.courses !== undefined) {
-      this.courses.forEach(function (value) {
-        console.log()
+      let result = this.courses.map(function (value) {
         let mark = User.evaluateMark(value.mark);
-        document.write(`<div class="user__courses">
-                <p class="user__courses--course student">
+
+        return `
+                  <p class="user__courses--course student">
                     ${value.title} <span class="${mark}">${mark}</span>
-                </p>
-            </div>`)
+                </p>`
+
       })
-return
+      document.write(`<div class="user__courses">${result.join("  ")} </div>`)
     }
 
   };
